@@ -1,5 +1,7 @@
 package ui;
 
+import model.World;
+
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,16 +9,27 @@ import java.util.Set;
 // represents an instance of Conway's Game of Life
 public class Game {
 
+    private int cellSize;
+    private Point screenDimensions;
+    private World world;
+
     // EFFECTS: instantiates a Game. If cellSize is valid, then sets cellSize and screenDimensions. Also sets World to
     // an instance with a random state
-    public Game(int cellSize) {
-        // stub
+    public Game(int cellSize) throws IllegalArgumentException {
+        validateCellSize(cellSize);
+        this.cellSize = cellSize;
+        screenDimensions = getScreenDimensions();
+        Set<Point> randomState = getRandomState();
+        world = new World(randomState);
     }
 
     // EFFECTS: instantiates a Game. If cellSize is valid, then sets cellSize and screenDimensions. Also sets World to
     // an instance with given initialState
-    public Game(int cellSize, Set<Point> initialState) {
-        // stub
+    public Game(int cellSize, Set<Point> initialState) throws IllegalArgumentException {
+        validateCellSize(cellSize);
+        this.cellSize = cellSize;
+        screenDimensions = getScreenDimensions();
+        world = new World(initialState);
     }
 
     public void play() {

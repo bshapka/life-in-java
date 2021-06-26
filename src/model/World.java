@@ -21,8 +21,8 @@ public class World {
     }
 
     // EFFECTS: returns state
-    public HashSet<Point> getState() {
-        return new HashSet<Point>();
+    public Set<Point> getState() {
+        return state;
     }
 
 }

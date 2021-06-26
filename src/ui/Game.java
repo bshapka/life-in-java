@@ -10,7 +10,7 @@ import java.util.Set;
 public class Game {
 
     private int cellSize;
-    private Point screenDimensions;
+    private Dimension screenDimensions;
     private World world;
 
     // EFFECTS: instantiates a Game. If cellSize is valid, then sets cellSize and screenDimensions. Also sets World to
@@ -37,13 +37,21 @@ public class Game {
     }
 
     // EFFECTS: returns screen dimensions in pixels as a Point
-    private Point getScreenDimensions() {
-        return new Point(0, 0);
+    private Dimension getScreenDimensions() {
+        return Toolkit.getDefaultToolkit().getScreenSize();
     }
 
     // EFFECTS: throws IllegalArgumentException if cellSize is negative or is too big for screen
     private void validateCellSize(int cellSize) throws IllegalArgumentException {
-        // stub
+        if (cellSize < 0) {
+            throw new IllegalArgumentException("The cellSize cannot be negative.");
+        }
+        if (cellSize > screenDimensions.getWidth()) {
+            throw new IllegalArgumentException("The cellSize cannot exceed the width of the screen.");
+        }
+        if (cellSize > screenDimensions.getHeight()) {
+            throw new IllegalArgumentException("The cellSize cannot exceed the height of the screen.");
+        }
     }
 
     // EFFECTS: returns a random state scaled to fill the screen when rendered

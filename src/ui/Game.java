@@ -2,6 +2,7 @@ package ui;
 
 import model.World;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
@@ -13,6 +14,8 @@ public class Game {
     private int cellSize;
     private Dimension screenDimensions;
     private World world;
+    private JFrame frame;
+    private GamePanel gamePanel;
 
     // EFFECTS: instantiates a Game. If cellSize is valid, then sets cellSize and screenDimensions. Also sets World to
     // an instance with a random state
@@ -31,10 +34,6 @@ public class Game {
         validateCellSize(cellSize);
         this.cellSize = cellSize;
         world = new World(initialState);
-    }
-
-    public void play() {
-        // stub
     }
 
     // EFFECTS: returns screen dimensions in pixels as a Point
@@ -57,7 +56,7 @@ public class Game {
 
     // EFFECTS: returns a random state scaled to fill the screen when rendered
     private Set<Point> getRandomState(float density) {
-        int screenArea = (int) screenDimensions.getWidth() * (int) screenDimensions.getHeight();
+        int screenArea = (int) (screenDimensions.getWidth() * screenDimensions.getHeight());
         int cellArea = cellSize * cellSize;
         int totalCells = screenArea / cellArea;
         int desiredCells = (int) (totalCells * density);
@@ -72,5 +71,40 @@ public class Game {
         Collections.shuffle(candidates);
         HashSet<Point> randomState = new HashSet<Point>(candidates.subList(0, desiredCells));
         return randomState;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: plays Conway's Game of Life
+    //
+    // continually renders each state of this.world on a JPanel attached to a JFrame surface until the user closes
+    // the window
+    public void play() {
+        initializeFrame();
+        while (true) {
+            world.nextState();
+            Set<Point> nextState = world.getState();
+            gamePanel.setState(nextState);
+            gamePanel.repaint();
+            try {
+                Thread.sleep(1000);
+            }
+            catch (Exception ex) {
+                System.out.println("foobar");
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: performs initial configuration of frame and renders the initial state of the world
+    private void initializeFrame() {
+        frame = new JFrame();
+        frame.setSize(screenDimensions);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setUndecorated(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gamePanel = new GamePanel(world.getState(), cellSize, screenDimensions);
+        frame.add(gamePanel);
+        frame.pack();
+        frame.setVisible(true);
     }
 }

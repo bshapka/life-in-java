@@ -17,9 +17,9 @@ public class Game {
     // EFFECTS: instantiates a Game. If cellSize is valid, then sets cellSize and screenDimensions. Also sets World to
     // an instance with a random state
     public Game(int cellSize) throws IllegalArgumentException {
+        screenDimensions = getScreenDimensions();
         validateCellSize(cellSize);
         this.cellSize = cellSize;
-        screenDimensions = getScreenDimensions();
         Set<Point> randomState = getRandomState(0.075f);
         world = new World(randomState);
     }
@@ -27,9 +27,9 @@ public class Game {
     // EFFECTS: instantiates a Game. If cellSize is valid, then sets cellSize and screenDimensions. Also sets World to
     // an instance with given initialState
     public Game(int cellSize, Set<Point> initialState) throws IllegalArgumentException {
+        screenDimensions = getScreenDimensions();
         validateCellSize(cellSize);
         this.cellSize = cellSize;
-        screenDimensions = getScreenDimensions();
         world = new World(initialState);
     }
 

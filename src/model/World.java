@@ -38,10 +38,10 @@ public class World {
     // given coordinate and b) the given coordinate itself. In other words, the region around a coordinate is the
     // coordinate itself plus the 8 closest other coordinates.
     private static List<Point> region(Point point) {
-        Supplier<IntStream> streamSupplier = () -> IntStream.rangeClosed(-1, 1);
+        Supplier<IntStream> offsetSupplier = () -> IntStream.rangeClosed(-1, 1);
         List<Point> region = new ArrayList<Point>();
-        streamSupplier.get().forEach(xOffset -> {
-            streamSupplier.get().forEach(yOffset -> {
+        offsetSupplier.get().forEach(xOffset -> {
+            offsetSupplier.get().forEach(yOffset -> {
                 region.add(new Point(point.x + xOffset, point.y + yOffset));
             });
         });

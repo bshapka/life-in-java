@@ -17,8 +17,8 @@ public class Game {
     private JFrame frame;
     private GamePanel gamePanel;
 
-    // EFFECTS: instantiates a Game. If cellSize is valid, then sets cellSize and screenDimensions. Also sets World to
-    // an instance with a random state
+    // EFFECTS: instantiates a Game. Sets screenDimensions. If cellSize is invalid, throws exception. If cellSize is
+    // valid, then sets cellSize, and then sets world to an instance with a random state.
     public Game(int cellSize) throws IllegalArgumentException {
         screenDimensions = getScreenDimensions();
         validateCellSize(cellSize);
@@ -27,8 +27,8 @@ public class Game {
         world = new World(randomState);
     }
 
-    // EFFECTS: instantiates a Game. If cellSize is valid, then sets cellSize and screenDimensions. Also sets World to
-    // an instance with given initialState
+    // EFFECTS: instantiates a Game. Sets screenDimensions. If cellSize is invalid, throws exception. If cellSize is
+    // valid, then sets cellSize, and then sets world to an instance with given state initial state.
     public Game(int cellSize, Set<Point> initialState) throws IllegalArgumentException {
         screenDimensions = getScreenDimensions();
         validateCellSize(cellSize);

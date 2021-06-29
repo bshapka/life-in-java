@@ -2,7 +2,8 @@
 This project is an implementation of Conway's Game of Life (or Life for short) in Java.
 
 ## About the code
-TODO
+The source code of this project was written in Java. The classes in the src directory are well documented in their
+source files, so these details won't be repeated here.
 
 ### Implementation Details
 This sub-section assumes basic familiarity with Life. If you are not familiar with Life but want to read this section, 
@@ -18,9 +19,11 @@ representing coordinates as tuples and storing them in a set, further efficienci
 This implementation uses a toroidal grid. As such, objects that leave the screen on one edge will re-enter the screen 
 with the same trajectory and velocity at the equivalent location on the opposing edge.
 
-### Dependencies
-
-TODO
+### Running the Project
+For convenience, this project/repo contains a jar file. The following is a set of recommended directions for running the 
+project. Note that these directions assume a JRE exists and that it has been associated with the shell command java.
+* Start a shell session and navigate to the directory `/out/artifacts/life_in_java_jar` in the project/cloned repo
+* Run the command `java -jar life-in-java.jar` to start the application
 
 ## About Life
 Life is a cellular automation created by the English mathematician John Conway. As a cellular automation, 
@@ -58,6 +61,4 @@ Cambridge in 1964, and he retired in 2013. In addition to his long and influenti
 a researcher, Conway was lauded for being a kind and eccentric character and a gifted expositor of 
 mathematics. For a full account of Conway’s life, see the book Genius at Play: The Curious Mind of 
 John Horton Conway by Siobhan Roberts. Conway passed away on Saturday, April 11, 2020, from 
-COVID-19. He was 82. 
-
-
+COVID-19. He was 82.

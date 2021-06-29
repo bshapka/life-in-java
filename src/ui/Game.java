@@ -2,20 +2,24 @@ package ui;
 
 import model.World;
 
+import javax.swing.Timer;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.*;
 import java.util.stream.IntStream;
 
 // represents an instance of Conway's Game of Life
-public class Game {
+public class Game implements ActionListener {
 
     private int cellSize;
     private Dimension screenDimensions;
     private World world;
     private JFrame frame;
     private GamePanel gamePanel;
+    private Timer timer;
 
     // EFFECTS: instantiates a Game. Sets screenDimensions. If cellSize is invalid, throws exception. If cellSize is
     // valid, then sets cellSize, and then sets world to an instance with a random state.
@@ -76,22 +80,12 @@ public class Game {
     // MODIFIES: this
     // EFFECTS: plays Conway's Game of Life
     //
-    // continually renders each state of this.world on a JPanel attached to a JFrame surface until the user closes
-    // the window
-    public void play() {
+    // continually renders each state of this.world with a delay of delay seconds on a JPanel attached to a JFrame
+    // surface until the user closes the window
+    public void play(float delay) {
         initializeFrame();
-        while (true) {
-            world.nextState();
-            Set<Point> nextState = world.getState();
-            gamePanel.setState(nextState);
-            gamePanel.repaint();
-            try {
-                Thread.sleep(1000);
-            }
-            catch (Exception ex) {
-                System.out.println("foobar");
-            }
-        }
+        timer = new Timer((int) (1000 * delay), this);
+        timer.start();
     }
 
     // MODIFIES: this
@@ -106,5 +100,13 @@ public class Game {
         frame.add(gamePanel);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        world.nextState();
+        Set<Point> nextState = world.getState();
+        gamePanel.setState(nextState);
+        gamePanel.repaint();
     }
 }

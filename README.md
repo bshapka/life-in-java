@@ -9,8 +9,9 @@ For information about the creator of the game, see [About John Conway](https://g
 The following is a set of recommended directions for running the project. Note that these directions assume a JRE exists 
 and that it has been associated with the shell command `java`. The project was developed and tested with the Java 16.0.1 SDK 
 and language level set to 14. Compatibility with older JREs may exist but is not guaranteed.
-* Start a shell session and navigate to the directory `/out/artifacts/life_in_java_jar` in the project/cloned repo
-* Run the command `java -jar life-in-java.jar` to start the application
+* Download the supplied jar file from [Releases](https://github.com/bshapka/life-in-java/releases)
+* Start a shell session and navigate to the directory containing the downloaded jar file
+* Run the command `java -jar life-in-java.jar` to start the application (assuming the jar file was not renamed)
 
 ## Implementation Details
 This section assumes basic familiarity with Life. If you are not familiar with Life but want to 

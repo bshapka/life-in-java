@@ -13,6 +13,8 @@ and language level set to 14. Compatibility with older JREs may exist but is not
 * Start a shell session and navigate to the directory containing the downloaded jar file
 * Run the command `java -jar life-in-java.jar` to start the application (assuming the jar file was not renamed)
 
+Note that if you download the source code and attempt to run the project, you will need to add JUnit 5.4 to the classpath.
+
 ## Implementation Details
 This section assumes basic familiarity with Life. If you are not familiar with Life but want to 
 read this section, please read the section [About Life](https://github.com/bshapka/life-in-x/blob/main/ABOUT_LIFE.md), 

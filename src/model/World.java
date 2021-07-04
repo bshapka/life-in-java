@@ -21,31 +21,34 @@ public class World {
     // MODIFIES: this
     // EFFECTS: updates state by applying the rules of the game
     public void nextState() {
-        Set<Point> nextState = state.stream()
-                .map(World::region)
-                .flatMap(Collection::stream)
+        List<Point> neighbours = generateNeighbours(state);
+        Set<Point> nextState = neighbours.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.reducing(0, e -> 1, Integer::sum)))
                 .entrySet().stream()
-                .filter(e -> e.getValue().equals(3) || (e.getValue().equals(4) && state.contains(e.getKey())))
+                .filter(e -> e.getValue().equals(3) || (e.getValue().equals(2) && state.contains(e.getKey())))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toCollection(HashSet::new));
         state = nextState;
     }
 
-    // EFFECTS: returns the list of coordinates of the region around the given coordinate
+    // EFFECTS: returns the coordinates of the neighbours of the coordinates in the given list
     //
-    // The region around a given coordinate is defined here to be the union of a) the Moore neighbourhood around the
-    // given coordinate and b) the given coordinate itself. In other words, the region around a coordinate is the
-    // coordinate itself plus the 8 closest other coordinates.
-    private static List<Point> region(Point point) {
+    // The neighbourhood around a given coordinate is defined to be the the Moore neighbourhood
+    // around that coordinate. In other words, the neighbourhood around a given coordinate is
+    // the 8 closest other coordinates.
+    private static List<Point> generateNeighbours(Set<Point> state) {
+        List<Point> neighbours = new ArrayList<Point>();
         Supplier<IntStream> offsetSupplier = () -> IntStream.rangeClosed(-1, 1);
-        List<Point> region = new ArrayList<Point>();
-        offsetSupplier.get().forEach(xOffset -> {
-            offsetSupplier.get().forEach(yOffset -> {
-                region.add(new Point(point.x + xOffset, point.y + yOffset));
+        state.forEach(point -> {
+            offsetSupplier.get().forEach(xOffset -> {
+                offsetSupplier.get().forEach(yOffset -> {
+                    if (!(xOffset == 0 && yOffset == 0)) {
+                        neighbours.add(new Point(point.x + xOffset, point.y + yOffset));
+                    }
+                });
             });
         });
-        return region;
+        return neighbours;
     }
 
     // EFFECTS: returns state
